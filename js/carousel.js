@@ -45,12 +45,18 @@ function animate(){
     clearInterval(interval)
     interval = setInterval(function(){
         left = left - IMAGEWIDTH
+        console.log(left)
         if (left< -totalImage*IMAGEWIDTH+IMAGEWIDTH){
             left = 0
         }
-        var index = Math.abs(left) / IMAGEWIDTH
+        var index = indexCalc(left)
         carouselImageWrapper.style.left = left + 'px'
+        activeButton(index)
     },TRANSITION)
+}
+
+function indexCalc(left){
+    return Math.abs(left) / IMAGEWIDTH
 }
 
 
@@ -68,12 +74,12 @@ function animate(){
     // carouselImageWrapper.style.left = left + 'px'
     // },HOLD)
 
-function activeButton() {
+function activeButton(index) {
     var actitveElement = document.querySelectorAll(".active");
     [].forEach.call(actitveElement, function(el) {
         el.classList.remove("active");
     });
-    event.target.classList.add("active");
+    document.getElementsByClassName('square')[index].classList.add('active')
 }
 
 
@@ -89,13 +95,13 @@ for (var i = 0; i < elements.length; i++) {
         }
         else if (e.target.classList[1] === 'btn-left'){
             left = left + IMAGEWIDTH
-            console.log(left)
             if (left>0){
                 left += -totalImage*IMAGEWIDTH
             }
             carouselImageWrapper.style.left = left + 'px'
         }
-        animate()
+        var index = indexCalc(left)
+            activeButton(index)
     })
 }
 
@@ -104,8 +110,6 @@ getSquareChild.forEach(function (square, index) {
     square.addEventListener('click', function (event) {
         left = -index * IMAGEWIDTH
         carouselImageWrapper.style.left = left + 'px'
-        animate()
-        activeButton(event)
     });
   });
 animate()
