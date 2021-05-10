@@ -1,0 +1,10 @@
+.btn{
+    font-size: 100px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: black;
+}
