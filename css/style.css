@@ -9,12 +9,13 @@
     height: 100%;
     width: 300%;
     position: absolute;
+    display: flex;
     left: -2000px;
-    margin-left: -8px;
+    
 }
 .carousel-image-wrapper img{
     width: 1000px;
-    height: 500px;
+    height: 500px; 
 }
 .btn-right{
     right: 0px;
