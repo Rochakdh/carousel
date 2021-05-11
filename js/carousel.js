@@ -1,12 +1,11 @@
+function main(element,transition){
 var carouselContainer = document.querySelector('.carousel-container')
 var carouselImageWrapper = document.querySelector('.carousel-image-wrapper')
 var totalImage = carouselImageWrapper.childElementCount
 const IMAGEWIDTH = 1000 
-const TRANSITION = 2000
-const HOLD = 1000
-const RESET = -0
+var TRANSITION = 2000
 var left = 0
-var marker = 0
+var HOLD = 400
 
 function buttons(position) {
     var buttons = document.createElement('button')
@@ -50,37 +49,17 @@ function animate(){
             left = 0
         }
         var index = indexCalc(left)
+        carouselImageWrapper.style.transition = HOLD +'ms'
         carouselImageWrapper.style.left = left + 'px'
         activeButton(index)
-        console.log(index)
     },TRANSITION) 
    
 }
-
-// var smoothAnimation;
-// function smootherTransition(){
-    // interval = setInterval(function(){
-    //     left = left - 200
-    //     if (left< -totalImage*IMAGEWIDTH+IMAGEWIDTH){
-    //         left = 0
-    //     }
-    //     carouselImageWrapper.style.left = left + 'px'
-    // },HOLD) 
-// }
-
-
 
 function indexCalc(left){
     return Math.abs(left) / IMAGEWIDTH
 }
 
-function leftPosition (){
-    left = left - IMAGEWIDTH
-    if (left < -totalImage*IMAGEWIDTH+IMAGEWIDTH){
-        left = 0
-    }
-    return left
-}
 
 function activeButton(index) {
     var actitveElement = document.querySelectorAll(".active");
@@ -110,8 +89,7 @@ for (var i = 0; i < elements.length; i++) {
         }
         var index = indexCalc(left)
         activeButton(index)
-        animate()
-        
+        animate()  
     })
 }
 
@@ -124,5 +102,7 @@ getSquareChild.forEach(function (square, index) {
         animate()
     });
   });
-// smootherTransition()
 animate()
+
+}
+main()
