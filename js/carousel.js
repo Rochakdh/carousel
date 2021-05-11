@@ -2,10 +2,11 @@ var carouselContainer = document.querySelector('.carousel-container')
 var carouselImageWrapper = document.querySelector('.carousel-image-wrapper')
 var totalImage = carouselImageWrapper.childElementCount
 const IMAGEWIDTH = 1000 
-const TRANSITION = 5000
-const HOLD = 200
+const TRANSITION = 2000
+const HOLD = 1000
 const RESET = -0
 var left = 0
+var marker = 0
 
 function buttons(position) {
     var buttons = document.createElement('button')
@@ -45,34 +46,41 @@ function animate(){
     clearInterval(interval)
     interval = setInterval(function(){
         left = left - IMAGEWIDTH
-        console.log(left)
         if (left< -totalImage*IMAGEWIDTH+IMAGEWIDTH){
             left = 0
         }
         var index = indexCalc(left)
         carouselImageWrapper.style.left = left + 'px'
         activeButton(index)
-    },TRANSITION)
+        console.log(index)
+    },TRANSITION) 
+   
 }
+
+// var smoothAnimation;
+// function smootherTransition(){
+    // interval = setInterval(function(){
+    //     left = left - 200
+    //     if (left< -totalImage*IMAGEWIDTH+IMAGEWIDTH){
+    //         left = 0
+    //     }
+    //     carouselImageWrapper.style.left = left + 'px'
+    // },HOLD) 
+// }
+
+
 
 function indexCalc(left){
     return Math.abs(left) / IMAGEWIDTH
 }
 
-
-
-    // var hold = setInterval(function(){
-    // left = left - 200
-    // if (left % IMAGEWIDTH === RESET){
-    //     clearInterval(interval)
-    // }
-    // if (left < (-totalImage*IMAGEWIDTH)+IMAGEWIDTH){
-    //     left = 0
-    //     clearInterval(interval)
-    // }
-    // console.log(left)
-    // carouselImageWrapper.style.left = left + 'px'
-    // },HOLD)
+function leftPosition (){
+    left = left - IMAGEWIDTH
+    if (left < -totalImage*IMAGEWIDTH+IMAGEWIDTH){
+        left = 0
+    }
+    return left
+}
 
 function activeButton(index) {
     var actitveElement = document.querySelectorAll(".active");
@@ -101,7 +109,9 @@ for (var i = 0; i < elements.length; i++) {
             carouselImageWrapper.style.left = left + 'px'
         }
         var index = indexCalc(left)
-            activeButton(index)
+        activeButton(index)
+        animate()
+        
     })
 }
 
@@ -110,6 +120,9 @@ getSquareChild.forEach(function (square, index) {
     square.addEventListener('click', function (event) {
         left = -index * IMAGEWIDTH
         carouselImageWrapper.style.left = left + 'px'
+        activeButton(index)
+        animate()
     });
   });
+// smootherTransition()
 animate()
